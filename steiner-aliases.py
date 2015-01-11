@@ -34,10 +34,6 @@ def channelSetup(text, text_eol, userdata):
 	xcom('cs sop {} add rms'.format(channel))
 	return xchat.EAT_ALL
 	
-def cold(text, text_eol, userdata):
-	xsay('.w Verkhoyansk')
-	return xchat.EAT_ALL
-	
 def fakeIgnoreLong(text, text_eol, userdata):
 	if len(text) > 1: target = text_eol[1].strip()
 	else: return
@@ -68,8 +64,8 @@ def mypower(text, text_eol, userdata):
 	xsay('I have power over {}/{} people ({}%) in {} channels.'.format(count, total, percentage, channelcount))
 	return xchat.EAT_ALL	
 	
-def myWeather(text, text_eol, userdata):
-	xsay('.w 02893')
+def weather(text, text_eol, userdata):
+	xsay('.w {}'.format(userdata))
 	return xchat.EAT_ALL
 
 def slap(text, text_eol, userdata):
@@ -80,13 +76,13 @@ def slap(text, text_eol, userdata):
 
 xchat.hook_command('bing', bing)
 xchat.hook_command('chansetup', channelSetup)
-xchat.hook_command('cold', cold)
 xchat.hook_command('ig', fakeIgnoreLong)
 xchat.hook_command('fakeignore', fakeIgnoreShort)
 xchat.hook_command('mypower', mypower)
 xchat.hook_command('power', mypower)
 #xchat.hook_command('np', np)
 xchat.hook_command('slap', slap)
-xchat.hook_command('w', myWeather)
+xchat.hook_command('cold', weather, 'Verhoyansk')
+xchat.hook_command('w', weather, '10001')
 
 print('\00309{} {} has been loaded: {}\003'.format(__module_name__, __module_version__, __module_description__))
