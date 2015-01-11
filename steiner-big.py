@@ -8,7 +8,7 @@
 # License               GPL version 3 or any later version; http://www.gnu.org/copyleft/gpl.html
 #########################################################################################
 
-import xchat, string, re
+import xchat, string, re, random
 
 __module_name__ = 'steiner:big'
 __module_version__ = '1.0'
@@ -38,6 +38,9 @@ def big(text, text_eol, userdata):
 	global offset
 	if len(text) > 1:
 		text = text_eol[1].strip()
+	elif userdata == 'dubs':
+		xchat.command('say check out my decuples')
+		text = '\x03{:02d}{}'.format(random.choice([0,4,6,7,8,9,11,13]),str(random.randint(0,9))*10)
 	else: return
 	if userdata == 'gay':
 		text = rainbow(text,offset)
@@ -129,7 +132,7 @@ def bigformat(text, linecolor):
 	line = [[], [], [], [], []]
 	
 	# Searches for colour codes
-	for char in re.findall('(?:\x03\d+(?:,\d+|)|.)', text):
+	for char in re.findall('(?:\x03\d{1,2}(?:,\d{1,2}|)|.)', text):
 		for i in range(5):
 			if char.upper() in chars:
 				line[i].append(chars.get(char.upper())[i])
@@ -156,5 +159,6 @@ xchat.hook_command('biggay', big, 'gay')
 xchat.hook_command('biggaybow', big, 'gaybow')
 xchat.hook_command('bigrb', big, 'rb')
 xchat.hook_command('bigecho', big, 'echo')
+xchat.hook_command('dubs', big, 'dubs')
 
 print('\00309{} {} has been loaded: {}\003'.format(__module_name__, __module_version__, __module_description__))
