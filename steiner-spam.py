@@ -43,10 +43,10 @@ def box(text, text_eol, userdata):
 	return xchat.EAT_ALL
 
 def colors(text, text_eol, userdata):
-	coldict = {00:'white', 1:'black', 2:'navy', 3:'green', 4:'bright red', 5:'dark red', 6:'purple', 7:'orange', 8:'yellow', 9:'light green', 10:'dark cyan', 11:'light blue', 12:'dark blue', 13:'pink', 14:'dark grey', 15:'light grey'}
+	coldict = {0:'white', 1:'black', 2:'navy', 3:'green', 4:'bright red', 5:'dark red', 6:'purple', 7:'orange', 8:'yellow', 9:'light green', 10:'dark cyan', 11:'light blue', 12:'dark blue', 13:'pink', 14:'dark grey', 15:'light grey'}
 	collist = []
 	for value in coldict:
-		collist.append('\x03{}{}'.format(value, coldict.get(value)))
+		collist.append('\x03{0:02d}{0:02d} - {1}'.format(value, coldict.get(value)))
 	xsay(' '.join(collist))
 	xsay('\x02{}'.format(' '.join(collist)))
 	return xchat.EAT_ALL
