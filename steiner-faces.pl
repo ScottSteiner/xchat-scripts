@@ -1,7 +1,7 @@
 #########################################################################################
 # Name                  steiner:faces
 # Description           Unicode Faces ( ◕ ◡ ◕ )
-# Version               1.0 (2013-03-03)
+# Version               1.0.1 (2013-03-31)
 # Contact               ScottSteiner@irc.rizon.net
 # Website               https://github.com/ScottSteiner/xchat-scripts
 # Copyright             2012, ScottSteiner <nothingfinerthanscottsteiner@gmail.com>
@@ -13,7 +13,7 @@ use warnings;
 use Xchat qw( :all );
 
 my $NAME    = 'steiner:faces';
-my $VERSION = '1.0';
+my $VERSION = '1.0.1';
 
 register($NAME, $VERSION, "steiner:faces - Unicode faces");
 
@@ -86,12 +86,14 @@ my %faces = (
 );
 
 sub face {
-	IRC::command("/say $faces{\"@_\"}");
-	return EAT_XCHAT;
+	if (exists $faces{"@_"}) { 
+		command("say $faces{\"@_\"}");
+	} else { listfaces(); }
+	return;
 }
 sub listfaces {
 	foreach my $key (sort keys(%faces) ) {
 		IRC::print("$key = $faces{$key}");
 	}
-	return EAT_XCHAT;
+	return;
 }
