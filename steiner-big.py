@@ -39,18 +39,24 @@ def big(text, text_eol, userdata):
 	if len(text) > 1:
 		text = text_eol[1].strip()
 	else: return
-	if userdata == 'rb':
+	if userdata == 'gay':
 		text = rainbow(text,offset)
 		offset += 1
+	elif userdata == 'rb':
+		text = rainbow(text,offset)
+	if userdata == 'gaybow':
+		linecolor = [4,7,8,9,6]
+	else:
+		linecolor = False
 	if userdata == 'echo':
 		command = 'echo'
 	else:
 		command = 'say'
-	output = bigformat(text)
+	output = bigformat(text, linecolor)
 	for line in output:
 		xchat.command('{} {}'.format(command, line))
 
-def bigformat(text):
+def bigformat(text, linecolor):
 	global color
 	output = []
 	chars = {
@@ -130,7 +136,10 @@ def bigformat(text):
 			elif char.startswith('\x03'):
 				line[i].append(char)
 	for i in range(5):
-		color = 7 # Default color (orange)
+		if linecolor:
+			color = linecolor[i]
+		else:
+			color = 7 # Default color (orange)
 		outputline = ''
 
 		for char in line[i]:
@@ -143,6 +152,8 @@ def bigformat(text):
 	return output
 
 xchat.hook_command('big', big)	
+xchat.hook_command('biggay', big, 'gay')
+xchat.hook_command('biggaybow', big, 'gaybow')
 xchat.hook_command('bigrb', big, 'rb')
 xchat.hook_command('bigecho', big, 'echo')
 
