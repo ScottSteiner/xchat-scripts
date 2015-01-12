@@ -1,26 +1,34 @@
 #########################################################################################
 # Name                  steiner:france
 # Description           Typical French phrases for (He)XChat.
-# Version               1.0 (2013-03-03)
+# Version               1.1 (2015-01-11)
 # Contact               ScottSteiner@irc.rizon.net
 # Website               https://github.com/ScottSteiner/xchat-scripts
-# Copyright             2013, ScottSteiner <nothingfinerthanscottsteiner@gmail.com>
+# Copyright             2013-15, ScottSteiner <nothingfinerthanscottsteiner@gmail.com>
 # License               GPL version 3 or any later version; http://www.gnu.org/copyleft/gpl.html
 #########################################################################################
 
-use strict;
-use warnings;
-use Xchat qw( :all );
+import xchat, random
 
-my $NAME    = 'steiner:france';
-my $VERSION = '1.0';
+__module_name__ = 'steiner:france'
+__module_version__ = '1.1'
+__module_description__ = 'Typical French phrases for (He)XChat'
 
-register($NAME, $VERSION, "French phrases by Scott Steiner");
 
-IRC::add_command_handler("france", "france");
-my @jobs = (
-	"military attaché",
-	"cultural attaché",
+def france(text, text_eol, userdata):
+	if len(text) > 1: target = '{}: '.format(text_eol[1].strip())
+	else: target = ''
+	
+	xchat.command("say You son of a hag! I didn't serve as {} for {}-odd years in {}, defending our precious American {} and {}, just tew read such smart-mouthed assertions from the likes of a psycho like you! I'VE GOT {} {} HEARTS, MONSIEUR!!".format(random.choice(jobs), random.randint(3,20), random.choice(countries), random.choice(holidays), random.choice(badshit), random.randint(3,9), random.choice(colors).upper()))
+	return xchat.EAT_ALL
+
+xchat.hook_command('france', france)
+
+print('\x0309{} {} has been loaded: {}\003'.format(__module_name__, __module_version__, __module_description__))
+
+jobs = [
+	"military attach",
+	"cultural attach",
 	"Keeper of the Seals",
 	"Prime Minister",
 	"National Statistician",
@@ -30,8 +38,8 @@ my @jobs = (
 	"governor",
 	"mayor",
 	"city manager"
-);
-my @colors = (
+]
+colors = [
 	"blue",
 	"red",
 	"yellow",
@@ -80,8 +88,8 @@ my @colors = (
 	"vermilion",
 	"violet",
 	"wisteria"
-);
-my @holidays = (
+]
+holidays = [
 	"the Fourth of July",
 	"President's Day",
 	"Memorial Day",
@@ -95,8 +103,8 @@ my @holidays = (
 	"Halloween",
 	"September the Eleventh",
 	"9/11"
-);
-my @badshit = (
+]
+badshit = [
 	"slavery",
 	"segregation",
 	"lynching",
@@ -113,37 +121,47 @@ my @badshit = (
 	"illegal wars",
 	"assassination of civil rights leaders",
 	"interspecies rape",
-	"interracial rape"
-);
-my @countries = (
+	"interracial rape",
+	"drone attacks"
+]
+countries = [
+	"Afghanistan",
+	"Algeria", 
+	"Bangladesh",
+	"Bahrain",
+	"Chechnya",
+	"Congo",
+	"Djibouti",
+	"Egypt",
 	"Iran",
 	"Iraq",
-	"Turkey",
-	"Vietnam",
-	"Panama",
-	"Saudi Arabia",
-	"Qatar",
-	"Morocco",
-	"Bahrain",
-	"Omar",
-	"Yemen",
 	"Jordan",
 	"Lebanon",
-	"Syria",
-	"Palestine",
-	"Algeria",
-	"Egypt",
+	"Libya",
+	"Mali",
+	"Morocco",
 	"Niger",
+	"Oman",
+	"Pakistan",
+	"Palestine",
+	"Qatar",
+	"Saudi Arabia",
+	"Senegal",
+	"Somalia",
+	"Sudan",
+	"Syria",
+	"Tunisia",
+	"Turkey",
+	"Uzbekistan",
+	"Yemen",
+	"Bosnia",
+	"Cuba",
+	"Grenada",
+	"Haiti",
+	"Nicaragua",
+	"North Korea",
+	"Panama",
 	"Rwanda",
-	"Tunisia"
-);
-
-sub france {
-	my $years = int(rand(17))+3;
-	my $hearts_num = int(rand(6))+3;
-	my $hearts_col = uc $colors[int rand @colors];
-	my $sentence = "You son of a hag! I didn't serve as $jobs[int rand @jobs] for $years-odd years in $countries[int rand @countries], defending our precious American $holidays[int rand @holidays] and $badshit[int rand @badshit], just tew read such smart-mouthed assertions from the likes of a psycho like you! I'VE GOT $hearts_num $hearts_col HEARTS, MONSIEUR!!";
-	if ($_[0]) { my $targ = $_[0]; $targ =~ s/\s+$//; $sentence = "$targ: $sentence"; };
-	IRC::command("/say $sentence");
-	return EAT_XCHAT;
-}
+	"Vietnam",
+	"Yugoslavia"
+]
