@@ -1,7 +1,7 @@
 #########################################################################################
 # Name                  steiner:faces
 # Description           Unicode Faces ( ◕ ◡ ◕ )
-# Version               1.1 (2015-01-10)
+# Version               1.1.1 (2015-01-10)
 # Contact               ScottSteiner@irc.rizon.net
 # Website               https://github.com/ScottSteiner/xchat-scripts
 # Copyright             2012-2015, ScottSteiner <nothingfinerthanscottsteiner@gmail.com>
@@ -13,6 +13,24 @@ import xchat
 __module_name__ = 'steiner:faces'
 __module_version__ = '1.1'
 __module_description__ = 'Unicode faces'
+
+def face(text, text_eol, userdata):
+	try:
+		xchat.command("say {}".format(faces[text[1]]))
+	except IndexError:
+		listfaces()
+	return xchat.EAT_ALL
+
+def listfaces():
+	global faces
+	for face in sorted(faces):
+		print("{}: {}".format(face, faces[face]))
+	return xchat.EAT_ALL
+	
+xchat.hook_command('face', face)
+xchat.hook_command('listfaces', listfaces)
+
+print('\00309{} {} has been loaded: {}\003'.format(__module_name__, __module_version__, __module_description__))
 
 faces = {
 	'3'						: '( ¯3¯)',
@@ -78,22 +96,3 @@ faces = {
 	'_>'					: '（　´_ゝ｀）',
 	'_A_'					: 'ヽ(　￣д￣;)ノ'
 }
-
-def face(text, text_eol, userdata):
-	global faces
-	try:
-		xchat.command("say {}".format(faces[text[1]]))
-	except IndexError:
-		listfaces()
-	return xchat.EAT_ALL
-
-def listfaces():
-	global faces
-	for face in sorted(faces):
-		print("{}: {}".format(face, faces[face]))
-	return xchat.EAT_ALL
-	
-xchat.hook_command('face', face)
-xchat.hook_command('listfaces', listfaces)
-
-print('\00309{} {} has been loaded: {}\003'.format(__module_name__, __module_version__, __module_description__))
