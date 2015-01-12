@@ -5,7 +5,7 @@
 # Version               1.1 (2015-01-10)
 # Contact               ScottSteiner@irc.rizon.net
 # Website               https://github.com/ScottSteiner/xchat-scripts
-# Copyright             2013, ScottSteiner <nothingfinerthanscottsteiner@gmail.com>
+# Copyright             2013-15, ScottSteiner <nothingfinerthanscottsteiner@gmail.com>
 # License               GPL version 3 or any later version; http://www.gnu.org/copyleft/gpl.html
 #########################################################################################
 
